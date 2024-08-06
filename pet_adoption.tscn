@@ -1,0 +1,160 @@
+[gd_scene load_steps=5 format=3 uid="uid://cirorjjnqe468"]
+
+[ext_resource type="Script" path="res://pet_adoption.gd" id="1_apfjn"]
+[ext_resource type="PackedScene" uid="uid://cp7nsg06r10du" path="res://debug.tscn" id="1_h7tkp"]
+[ext_resource type="Texture2D" uid="uid://dn82gslribpil" path="res://pet_images/1.png" id="2_kbwgo"]
+[ext_resource type="Script" path="res://pet_adopt_option.gd" id="2_lhrf7"]
+
+[node name="PetAdoption" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_apfjn")
+
+[node name="Debug" parent="." instance=ExtResource("1_h7tkp")]
+layout_mode = 1
+anchors_preset = 2
+offset_top = -31.0
+offset_right = 600.0
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 64
+text = "Available Pets"
+
+[node name="Selection" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_top = 0.2
+anchor_right = 0.9
+anchor_bottom = 0.8
+
+[node name="MarginContainer" type="MarginContainer" parent="Selection"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Selection/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="PetOption" type="VBoxContainer" parent="Selection/MarginContainer/HBoxContainer" node_paths=PackedStringArray("pet_adoption")]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("2_lhrf7")
+pet_adoption = NodePath("../../../..")
+
+[node name="TextureRect" type="TextureRect" parent="Selection/MarginContainer/HBoxContainer/PetOption"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("2_kbwgo")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Adopt" type="Button" parent="Selection/MarginContainer/HBoxContainer/PetOption"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Adopt"
+
+[node name="PetOption2" type="VBoxContainer" parent="Selection/MarginContainer/HBoxContainer" node_paths=PackedStringArray("pet_adoption")]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("2_lhrf7")
+pet_adoption = NodePath("../../../..")
+
+[node name="TextureRect" type="TextureRect" parent="Selection/MarginContainer/HBoxContainer/PetOption2"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("2_kbwgo")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Adopt" type="Button" parent="Selection/MarginContainer/HBoxContainer/PetOption2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Adopt"
+
+[node name="PetOption3" type="VBoxContainer" parent="Selection/MarginContainer/HBoxContainer" node_paths=PackedStringArray("pet_adoption")]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("2_lhrf7")
+pet_adoption = NodePath("../../../..")
+
+[node name="TextureRect" type="TextureRect" parent="Selection/MarginContainer/HBoxContainer/PetOption3"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("2_kbwgo")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Adopt" type="Button" parent="Selection/MarginContainer/HBoxContainer/PetOption3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Adopt"
+
+[node name="Personalize" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_top = 0.2
+anchor_right = 0.9
+anchor_bottom = 0.8
+
+[node name="MarginContainer" type="MarginContainer" parent="Personalize"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Personalize/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Personalize/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("2_kbwgo")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Personalize/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 64
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Personalize/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Personalize/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+theme_override_font_sizes/font_size = 24
+text = "Name"
+horizontal_alignment = 2
+
+[node name="LineEdit" type="LineEdit" parent="Personalize/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 24
+
+[node name="Adopt" type="Button" parent="Personalize/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Adopt"
+
+[connection signal="pressed" from="Personalize/MarginContainer/HBoxContainer/VBoxContainer/Adopt" to="." method="_on_personalize_adopt_pressed"]

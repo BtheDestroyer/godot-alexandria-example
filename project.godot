@@ -1,0 +1,30 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Pet Collector"
+run/main_scene="res://log_in_screen.tscn"
+config/features=PackedStringArray("4.3", "Forward Plus")
+config/icon="res://icon.svg"
+
+[autoload]
+
+Alexandria="*res://addons/alexandria.db/alexandria.tscn"
+AlexandriaNetClient="*res://addons/alexandria.netclient/alexandria_net_client.gd"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/alexandria.db/plugin.cfg", "res://addons/alexandria.netclient/plugin.cfg")

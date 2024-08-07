@@ -1,1 +1,1 @@
-# [Alexandria](https://github.com/BtheDestroyer/godot-alexandria) Exanple Project
+# [Alexandria](https://github.com/BtheDestroyer/godot-alexandria) Example Project

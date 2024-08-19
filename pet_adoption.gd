@@ -25,10 +25,10 @@ func adopt(pet_name: String, type: int) -> void:
       return
   var pet_data: Pet = await AlexandriaNetClient.get_remote_entry("pet", pet_entry)
   if not pet_data:
-    pet_data = Pet.new(pet_name, type)
-  else:
-    pet_data.name = pet_name
-    pet_data.type = type
+    OS.alert("Failed to get remote pet entry!")
+    return
+  pet_data.name = pet_name
+  pet_data.type = type
   match await AlexandriaNetClient.update_remote_entry("pet", pet_entry, pet_data):
     OK:
       pass

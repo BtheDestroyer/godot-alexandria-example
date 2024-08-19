@@ -21,7 +21,6 @@ func _ready() -> void:
     button.pressed.connect(select.bind(pet))
     button.add_theme_font_size_override("font_size", 24)
     pet_buttons.add_child(button)
-  var pet_list := PlayerData.current.pet_list
   select(PlayerData.current.pet_list.pets.front())
 
 func select(pet: Pet):
@@ -50,7 +49,6 @@ func _on_release_pressed() -> void:
     var error:
       OS.alert("Failed to update pet list: " + error_string(error))
       return
-  PlayerData.current.pet_list.pets.remove_at(index)
   pet_buttons.get_child(index).queue_free()
   if PlayerData.current.pet_list.pets.size() == 0:
     get_tree().change_scene_to_file("res://pet_adoption.tscn")

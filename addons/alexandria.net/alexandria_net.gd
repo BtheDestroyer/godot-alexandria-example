@@ -261,7 +261,7 @@ class DatabaseReadRequestPacket extends DatabaseEntryPacket:
               var session_token: AlexandriaNet_SessionToken = connected_client.session_token
               if session_token != null:
                 if Alexandria.get_entry_permissions_for_user(entry, session_token.user) & Alexandria_Entry.Permissions.READ:
-                  var entry_data := schema_data.serialize_entry(entry_name, entry)
+                  var entry_data := schema_data.serialize_entry(entry_name, entry, true)
                   if entry_data.size() > 0:
                     response_packet.entry_data = entry_data
                     response_packet.code = OK
@@ -270,7 +270,7 @@ class DatabaseReadRequestPacket extends DatabaseEntryPacket:
                 else:
                   response_packet.code = ERR_FILE_NO_PERMISSION
               else:
-                    response_packet.code = ERR_UNAUTHORIZED
+                response_packet.code = ERR_UNAUTHORIZED
             else:
               response_packet.code = ERR_UNAUTHORIZED
           else:
@@ -307,9 +307,9 @@ class DatabaseReadResponsePacket extends DatabaseEntryResponsePacket:
     if not schema_data:
       return ERR_INVALID_PARAMETER
     var entry := schema_data.deserialize_entry(entry_data)
+    net.read_database_entry_response.emit(schema_name, entry_name, entry)
     if not entry:
       return ERR_CANT_RESOLVE
-    net.read_database_entry_response.emit(schema_name, entry_name, entry)
     return OK
 
 ## Requests a database entry to be updated on the remote AlexandriaNetServer
@@ -609,6 +609,8 @@ var packet_types := [
   DatabaseReadResponsePacket,
   DatabaseUpdateRequestPacket,
   DatabaseUpdateResponsePacket,
+  DatabaseDeleteRequestPacket,
+  DatabaseDeleteResponsePacket,
   DatabaseSchemaEntriesRequestPacket,
   DatabaseSchemaEntriesResponsePacket,
   CreateUserRequestPacket,

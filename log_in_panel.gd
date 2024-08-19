@@ -4,7 +4,7 @@ extends PanelContainer
 @onready var password: LineEdit = $MarginContainer/VBoxContainer/HBoxContainer2/Password
 
 func _unhandled_input(event: InputEvent) -> void:
-  if (event as InputEventKey).get_keycode_with_modifiers() == KEY_ENTER:
+  if event is InputEventKey and event.get_keycode_with_modifiers() == KEY_ENTER:
     attempt_log_in()
     accept_event()
 

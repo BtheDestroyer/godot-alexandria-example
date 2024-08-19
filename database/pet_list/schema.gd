@@ -1,3 +1,3 @@
 class_name PetList extends Alexandria_Entry
 
-@export var pets: Array[String]
+@export var pets: Array[Pet]

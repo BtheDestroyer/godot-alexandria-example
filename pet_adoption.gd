@@ -13,33 +13,30 @@ func select(type: int) -> void:
   personalize_texture.texture = load("res://pet_images/%d.png" % [selected_type])
 
 func adopt(pet_name: String, type: int) -> void:
-  var pet_list: PetList = await AlexandriaNetClient.get_remote_entry("pet_list", PlayerData.current.username)
-  if pet_list == null:
-    match await AlexandriaNetClient.create_remote_entry("pet_list", PlayerData.current.username):
-      OK:
-        pass
-      var error:
-        OS.alert("Failed to create pet list entry: " + error_string(error))
-        return
-    pet_list = await AlexandriaNetClient.get_remote_entry("pet_list", PlayerData.current.username)
-    if pet_list == null:
-      OS.alert("Failed to get your pet list!")
-      return
-  var pet_entry := PlayerData.current.username + "." + pet_name
+  await PlayerData.current.update_pet_list()
+  if PlayerData.current.pet_list == null:
+    return
+  var pet_entry := _Alexandria.uuid_v4()
   match await AlexandriaNetClient.create_remote_entry("pet", pet_entry):
     OK:
       pass
     var error:
       OS.alert("Failed to create pet entry: " + error_string(error))
       return
-  match await AlexandriaNetClient.update_remote_entry("pet", pet_entry, Pet.new(pet_name, type)):
+  var pet_data: Pet = await AlexandriaNetClient.get_remote_entry("pet", pet_entry)
+  if not pet_data:
+    pet_data = Pet.new(pet_name, type)
+  else:
+    pet_data.name = pet_name
+    pet_data.type = type
+  match await AlexandriaNetClient.update_remote_entry("pet", pet_entry, pet_data):
     OK:
       pass
     var error:
       OS.alert("Failed to update pet entry: " + error_string(error))
       return
-  pet_list.pets.append(pet_entry)
-  match await AlexandriaNetClient.update_remote_entry("pet_list", PlayerData.current.username, pet_list):
+  PlayerData.current.pet_list.pets.push_back(pet_data)
+  match await AlexandriaNetClient.update_remote_entry("pet_list", PlayerData.current.username, PlayerData.current.pet_list):
     OK:
       pass
     var error:

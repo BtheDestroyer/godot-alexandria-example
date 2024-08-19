@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://cirorjjnqe468"]
+[gd_scene load_steps=4 format=3 uid="uid://cirorjjnqe468"]
 
 [ext_resource type="Script" path="res://pet_adoption.gd" id="1_apfjn"]
-[ext_resource type="PackedScene" uid="uid://cp7nsg06r10du" path="res://debug.tscn" id="1_h7tkp"]
 [ext_resource type="Texture2D" uid="uid://dn82gslribpil" path="res://pet_images/1.png" id="2_kbwgo"]
 [ext_resource type="Script" path="res://pet_adopt_option.gd" id="2_lhrf7"]
 
@@ -13,12 +12,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_apfjn")
-
-[node name="Debug" parent="." instance=ExtResource("1_h7tkp")]
-layout_mode = 1
-anchors_preset = 2
-offset_top = -31.0
-offset_right = 600.0
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
